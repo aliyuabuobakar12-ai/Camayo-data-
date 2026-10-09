@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: camayo-data
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: APP_URL
+        sync: false
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: VTPASS_API_KEY
+        sync: false
+      - key: VTPASS_PUBLIC_KEY
+        sync: false
+      - key: VTPASS_BASE_URL
+        value: https://vtpass.com/api
+      - key: DB_PATH
+        value: /var/data/camayo.db
+    # Add a persistent disk mounted at /var/data in the Render dashboard.

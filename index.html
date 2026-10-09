@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ha">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Camayo Data</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar"><strong>Camayo Data</strong><span id="userName"></span></header>
+  <main>
+    <section id="authPage" class="card">
+      <h1>Barka da zuwa Camayo Data</h1><p>Shiga ko ƙirƙiri sabon account.</p>
+      <div class="tabs"><button id="loginTab" class="active" type="button">Shiga</button><button id="registerTab" type="button">Rajista</button></div>
+      <p id="authMessage" class="message" aria-live="polite"></p>
+      <form id="loginForm"><label>Email<input id="loginEmail" type="email" required autocomplete="email"></label><label>Password<input id="loginPassword" type="password" required autocomplete="current-password"></label><button class="primary">Shiga</button></form>
+      <form id="registerForm" class="hidden"><label>Suna<input id="registerName" required autocomplete="name"></label><label>Email<input id="registerEmail" type="email" required autocomplete="email"></label><label>Password (aƙalla 6)<input id="registerPassword" type="password" minlength="6" required autocomplete="new-password"></label><button class="primary">Ƙirƙiri account</button></form>
+    </section>
+    <section id="appPage" class="hidden">
+      <nav class="tabs"><button data-page="homePage" type="button">Gida / Sayi Data</button><button data-page="historyPage" type="button">Tarihi</button><button id="logoutBtn" type="button">Fita</button></nav>
+      <section id="homePage" class="page active card">
+        <h1>Sannu, <span id="homeName"></span></h1><div class="balance"><small>Wallet balance</small><strong id="balance">₦0.00</strong><button id="fundBtn" type="button">Saka kuɗi</button></div>
+        <h2>Sayi Data</h2><label>Network<select id="network" required><option value="">Zaɓi network</option><option value="MTN">MTN</option><option value="Airtel">Airtel</option><option value="Glo">Glo</option><option value="9mobile">9mobile</option></select></label>
+        <label>Plan<select id="plan" disabled required><option value="">Da farko zaɓi network</option></select></label><p id="planInfo" class="muted"></p>
+        <label>Lambar waya<input id="phone" type="tel" inputmode="numeric" placeholder="08012345678" maxlength="11" required></label>
+        <button id="buyBtn" class="primary" type="button">Sayi yanzu</button><p id="buyMessage" class="message" aria-live="polite"></p>
+      </section>
+      <section id="historyPage" class="page card"><h1>Tarihin ma'amaloli</h1><div id="historyList"></div></section>
+    </section>
+  </main>
+  <div id="fundModal" class="modal hidden"><div class="card"><button id="closeFund" class="close" type="button">Rufe ✕</button><h2>Saka kuɗi a wallet</h2><form id="fundForm"><label>Adadi (₦)<input id="fundAmount" type="number" min="100" max="1000000" step="1" required></label><button id="fundSubmit" class="primary">Ci gaba zuwa Paystack</button><p id="fundMessage" class="message" aria-live="polite"></p></form></div></div>
+  <script src="script.js"></script>
+</body></html>
