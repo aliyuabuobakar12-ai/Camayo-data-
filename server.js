@@ -279,18 +279,43 @@ const SERVICE_MAP = {
   "9mobile":"etisalat-data"
 };
 
-async function vtpass(pathname, body) {
-  const r = await fetch(VTPASS_BASE_URL + pathname, {
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
-      "api-key":VTPASS_API_KEY,
-      "public-key":VTPASS_PUBLIC_KEY
-    },
-    body:JSON.stringify(body)
-  });
-  return await r.json();
+async function vtpass(pathname, body = null) {
+  const isGet = pathname === "/service-variations";
+
+  const headers = {
+    "api-key": VTPASS_API_KEY,
+    "public-key": VTPASS_PUBLIC_KEY
+  };
+
+  const options = {
+    method: isGet ? "GET" : "POST",
+    headers
+  };
+
+  if (!isGet) {
+    headers["Content-Type"] = "application/json";
+    headers["secret-key"] = process.env.VTPASS_SECRET_KEY || "";
+
+    options.body = JSON.stringify(body || {});
+  }
+
+  const response = await fetch(
+    VTPASS_BASE_URL + pathname +
+      (isGet && body?.serviceID
+        ? "?serviceID=" + encodeURIComponent(body.serviceID)
+        : ""),
+    options
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error("VTpass HTTP error: " + response.status);
+  }
+
+  return data;
 }
+
 
 app.get("/api/plans", auth, async (req,res)=>{
   const network = req.query.network;
