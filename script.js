@@ -255,7 +255,7 @@ async function loadHistory() {
       div.className = "history-item";
       const statusClass = tx.status === "success" ? "status-success" : "status-failed";
       div.innerHTML = `
-        <strong>${tx.network} — ${tx.plan || "Data"}</strong>
+<strong>${tx.network || (tx.type === "wallet_funding" ? "Wallet Funding" : "Transaction")} — ${tx.plan || "Data"}</strong>
         <p>${tx.phone || ""}</p>
         <p>₦${Number(tx.amount || 0).toLocaleString("en-NG")}</p>
         <small class="${statusClass}">${tx.status}</small>
